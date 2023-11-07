@@ -6,11 +6,14 @@
 </head>
 <body>
 <h1>Add Book</h1>
-
+{% if user.is_authenticated %}
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <button>Post</button>
+    {% else %}
+    You must login to access this page!
+    {% endif %}
     <a href="{% url 'home' %}">Back</a>
 </form>
 </body>
