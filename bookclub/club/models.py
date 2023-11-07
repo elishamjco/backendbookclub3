@@ -13,5 +13,6 @@ class Book(models.Model):
         return self.book
 class Review(models.Model):
     title = models.CharField(max_length=50)
+    review = models.PositiveIntegerField(default=1)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField()

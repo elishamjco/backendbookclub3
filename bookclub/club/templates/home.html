@@ -5,6 +5,9 @@
     <title>Home</title>
 </head>
 <body>
-<p>Hello World</p>
+{% for book in object_list %}
+<h1><a href="{% url 'book-details' book.pk %}">{{book.book}}</a></h1><br><hr>
+Author: {{book.author}}<br>
+{% endfor%}<br>
 </body>
 </html>
