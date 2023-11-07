@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Book
 # Create your views here.
 
@@ -14,4 +14,9 @@ class BookDetail(DetailView):
 class AddBookView(CreateView):
     model = Book
     template_name = 'add_book.html'
+    fields = '__all__'
+
+class UpdateBookView(UpdateView):
+    model = Book
+    template_name = 'update_book.html'
     fields = '__all__'

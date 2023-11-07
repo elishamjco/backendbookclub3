@@ -8,6 +8,7 @@
 {% for book in object_list %}
 <h1><a href="{% url 'book-details' book.pk %}">{{book.book}}</a></h1><br><hr>
 Author: {{book.author}}<br>
+<a href="{% url 'edit-book' book.pk %}">Edit</a>
 {% endfor%}<br>
 
 <h2><a href="{% url 'add-book' %}">Add Book</a></h2>
