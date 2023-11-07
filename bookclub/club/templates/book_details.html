@@ -5,6 +5,13 @@
     <title>Book Details</title>
 </head>
 <body>
+<h1> {{book.book}}</h1><hr>
+<p>Author: {{book.author}}<br>
 
+    Description: {{book.description}}<br>
+    Release Date: {{book.release_date}}<br>
+    Genre: {{book.genre}}<br>
+    <a href="{% url 'home' %}">Back</a>
+</p>
 </body>
 </html>
