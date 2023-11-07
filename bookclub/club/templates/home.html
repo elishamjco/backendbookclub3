@@ -6,12 +6,14 @@
 </head>
 <body>
 {% for book in object_list %}
-<h1><a href="{% url 'book-details' book.pk %}">{{book.book}}</a></h1><br><hr>
+<h1><a href="{% url 'book-details' book.pk %}">{{book.book}}</a></h1><br>
 Author: {{book.author}}<br>
 <a href="{% url 'edit-book' book.pk %}">Edit</a>
-<a href="{% url 'delete-book' book.pk %}">Delete</a>
+<a href="{% url 'delete-book' book.pk %}">Delete</a><hr>
 {% endfor%}<br>
 
 <h2><a href="{% url 'add-book' %}">Add Book</a></h2>
+<h2><a href="{% url 'register' %}">Register</a></h2>
+<h2><a href="{% url 'login' %}">Login</a></h2>
 </body>
 </html>
