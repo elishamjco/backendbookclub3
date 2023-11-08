@@ -2,18 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update Book</title>
+    <title>Add Club</title>
 </head>
 <body>
-<h1>Update Book</h1>
+<h1>Add Club</h1>
 {% if user.is_authenticated %}
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button>Update</button>
-     {% else %}
+    <button>Post</button>
+    {% else %}
     You must login to access this page!
-{% endif %}    <a href="{% url 'home' %}">Back</a>
+    {% endif %}
+    <a href="{% url 'home' %}">Back</a>
 </form>
 </body>
 </html>

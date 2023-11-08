@@ -45,7 +45,7 @@ class Club(models.Model):
     description= models.TextField(blank=True)
 
     def __str__(self):
-        return self.name + self.book
+        return self.name
     def get_absolute_url(self):
         return reverse('home')
 
