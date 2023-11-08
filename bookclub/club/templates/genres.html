@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ gen }}</title>
+</head>
+<body>
+
+<h1>{{ gen }}</h1>
+{% for book in genre_books %}
+    <h1><a href="{% url 'book-details' book.pk %}">{{ book.book }}</a></h1><br>
+    Author: {{ book.author }}<br>
+    {% if user.is_authenticated %}
+        <a href="{% url 'edit-book' book.pk %}">Edit</a>
+        <a href="{% url 'delete-book' book.pk %}">Delete</a><hr>
+    {% endif %}
+{% endfor %}
+
+</body>
+</html>
+
+
+

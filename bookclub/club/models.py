@@ -11,6 +11,7 @@ class Genre(models.Model):
 
     def get_absolute_url(self):
         return reverse('home')
+
 class Book(models.Model):
     book = models.CharField(max_length=50)
     description = models.TextField()
@@ -20,6 +21,7 @@ class Book(models.Model):
 
     def __str__(self):
         return self.book
+
 
     def get_absolute_url(self):
         return reverse('home')
