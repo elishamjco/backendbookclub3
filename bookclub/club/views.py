@@ -1,95 +1,74 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Book, Genre, Club, Reviews, Message
-from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404
-# Create your views here.
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+from .models import Book, Club, Reviews, Message
+from .serializers import (
+    BookSerializer, ClubSerializer, ReviewsSerializer, MessageSerializer
+)
 
-class HomeView(ListView):
-    model = Book
-    template_name = 'home.html'
+class HomeApiView(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
 
-class BookDetail(DetailView):
-    model = Book
-    template_name = 'book_details.html'
+class BookDetailApiView(generics.RetrieveAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
 
-class AddBookView(CreateView):
-    model = Book
-    template_name = 'add_book.html'
-    fields = '__all__'
+class AddBookApiView(generics.CreateAPIView):
+    serializer_class = BookSerializer
 
-class UpdateBookView(UpdateView):
-    model = Book
-    template_name = 'update_book.html'
-    fields = '__all__'
+class UpdateBookApiView(generics.UpdateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
 
-class DeleteBookView(DeleteView):
-    model = Book
-    template_name = 'delete_book.html'
-    success_url = reverse_lazy('home')
+class DeleteBookApiView(generics.DestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
 
-class ClubDetail(DetailView):
-    model = Club
-    template_name = 'club_details.html'
+class ClubDetailApiView(generics.RetrieveAPIView):
+    queryset = Club.objects.all()
+    serializer_class = ClubSerializer
 
-class AddClubView(CreateView):
-    model = Club
-    template_name = 'add_club.html'
-    fields = '__all__'
+class AddClubApiView(generics.CreateAPIView):
+    serializer_class = ClubSerializer
 
-class UpdateClubView(UpdateView):
-    model = Club
-    template_name = 'update_club.html'
-    fields = '__all__'
+class UpdateClubApiView(generics.UpdateAPIView):
+    queryset = Club.objects.all()
+    serializer_class = ClubSerializer
 
-class DeleteClubView(DeleteView):
-    model = Club
-    template_name = 'delete_club.html'
-    success_url = reverse_lazy('home')
+class DeleteClubApiView(generics.DestroyAPIView):
+    queryset = Club.objects.all()
+    serializer_class = ClubSerializer
 
-class ClubsView(ListView):
-    model = Club
-    template_name = 'clubs.html'
+class ClubsApiView(generics.ListAPIView):
+    queryset = Club.objects.all()
+    serializer_class = ClubSerializer
 
-class BooksView(ListView):
-    model = Book
-    template_name = 'books.html'
+class BooksApiView(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
 
+class PostMessageApiView(generics.CreateAPIView):
+    serializer_class = MessageSerializer
 
-class PostMessageView(CreateView):
-    model = Message
-    template_name = 'post_message.html'
-    fields = '__all__'
+class PostReviewApiView(generics.CreateAPIView):
+    serializer_class = ReviewsSerializer
+    permission_classes = [IsAuthenticated]
 
-class PostReviewView(CreateView):
-    model = Reviews
-    template_name = 'post_review.html'
-    fields = ['book', 'text', 'rating']
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-class UpdateMessageView(UpdateView):
-    model = Message
-    template_name = 'update_message.html'
-    fields = '__all__'
+class UpdateMessageApiView(generics.UpdateAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
 
-class UpdateReviewView(UpdateView):
-    model = Reviews
-    template_name = 'update_reviews.html'
-    fields = '__all__'
+class UpdateReviewApiView(generics.UpdateAPIView):
+    queryset = Reviews.objects.all()
+    serializer_class = ReviewsSerializer
 
-class DeleteMessageView(DeleteView):
-    model = Message
-    template_name = 'delete_message.html'
-    success_url = reverse_lazy('clubs')
+class DeleteMessageApiView(generics.DestroyAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
 
-class DeleteReviewView(DeleteView):
-    model = Reviews
-    template_name = 'delete_review.html'
-    success_url = reverse_lazy('books')
-
-def GenreView(request, gen):
-    genre = get_object_or_404(Genre, name=gen)
-    genre_books = Book.objects.filter(genre=genre)
-    return render(request, 'genres.html', {'gen': gen, 'genre_books': genre_books})
+class DeleteReviewApiView(generics.DestroyAPIView):
+    queryset = Reviews.objects.all()
+    serializer_class = ReviewsSerializer
