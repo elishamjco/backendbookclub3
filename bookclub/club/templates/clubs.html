@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Clubs</title>
 </head>
 <body>
+{% for club in object_list %}
+<h1><a href="{% url 'club-details' club.pk %}">{{club.name}}</a></h1><br>
 
+{% endfor%}<br>
+ <a href="{% url 'home' %}">Back</a>
 </body>
 </html>

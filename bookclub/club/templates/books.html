@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Books</title>
 </head>
 <body>
+{% for book in object_list %}
+<h1><a href="{% url 'book-details' book.pk %}">{{book.book}}</a></h1><br>
+<p>Author: {{book.author}}<br>
 
+    Description: {{book.description}}<br>
+    Release Date: {{book.release_date}}<br>
+    Genre: {{book.genre}}<br><hr>
+    <a href="{% url 'home' %}">Back</a>
+</p>
+{% endfor%}<br>
 </body>
 </html>

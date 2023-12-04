@@ -55,6 +55,40 @@ class BooksView(ListView):
     model = Book
     template_name = 'books.html'
 
+
+class PostMessageView(CreateView):
+    model = Message
+    template_name = 'post_message.html'
+    fields = '__all__'
+
+class PostReviewView(CreateView):
+    model = Reviews
+    template_name = 'post_review.html'
+    fields = ['book', 'text', 'rating']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+class UpdateMessageView(UpdateView):
+    model = Message
+    template_name = 'update_message.html'
+    fields = '__all__'
+
+class UpdateReviewView(UpdateView):
+    model = Reviews
+    template_name = 'update_reviews.html'
+    fields = '__all__'
+
+class DeleteMessageView(DeleteView):
+    model = Message
+    template_name = 'delete_message.html'
+    success_url = reverse_lazy('clubs')
+
+class DeleteReviewView(DeleteView):
+    model = Reviews
+    template_name = 'delete_review.html'
+    success_url = reverse_lazy('books')
+
 def GenreView(request, gen):
     genre = get_object_or_404(Genre, name=gen)
     genre_books = Book.objects.filter(genre=genre)

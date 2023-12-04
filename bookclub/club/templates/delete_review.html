@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Book</title>
+    <title>Delete Book</title>
 </head>
 <body>
-<h1>Add Book</h1>
+<h3>Delete: {{Club.name}}</h3>
 {% if user.is_authenticated %}
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button>Add</button>
-    {% else %}
+    <br><strong>Are you sure you want to delete this book?</strong>
+ <br>   <button>Delete Club!</button>
+     {% else %}
     You must login to access this page!
     {% endif %}
     <a href="{% url 'home' %}">Back</a>

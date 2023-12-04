@@ -5,8 +5,14 @@
     <title>Club Details</title>
 </head>
 <body>
-<h1> {{Club.name}}</h1><hr>
-
+<h1> {{club.name}}</h1><hr>
+Host: {{club.host}} <br>
+Book: {{club.book}} <br>
+Description: {{club.description}} <br>
 </p>
+{% if user.is_authenticated %}
+    <h2><a href="{% url 'edit-club' club.pk %}">Edit Club</a></h2>
+    <h2><a href="{% url 'delete-club' club.pk %}">Delete Club</a></h2>
+    {% endif %}
 </body>
 </html>

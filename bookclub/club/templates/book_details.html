@@ -5,13 +5,33 @@
     <title>Book Details</title>
 </head>
 <body>
-<h1> {{book.book}}</h1><hr>
-<p>Author: {{book.author}}<br>
+    <h1>{{ book.book }}</h1>
+    <hr>
+    <p>
+        Author: {{ book.author }}<br>
+        Description: {{ book.description }}<br>
+        Release Date: {{ book.release_date }}<br>
+        Genre: {{ book.genre }}<br>
 
-    Description: {{book.description}}<br>
-    Release Date: {{book.release_date}}<br>
-    Genre: {{book.genre}}<br>
-    <a href="{% url 'home' %}">Back</a>
-</p>
+        Reviews:
+        {% for review in book.reviews.all %}
+            <div>
+                User: {{ review.user.username }}<br>
+                Time: {{ review.time }}<br>
+                Rating: {{ review.rating }}<br>
+                Text: {{ review.text }}<br>
+            </div>
+            <hr>
+        {% empty %}
+            <p>No reviews available.</p>
+        {% endfor %}
+
+        {% if user.is_authenticated %}
+            <h2><a href="{% url 'post-review' %}">Add Review</a></h2>
+            <h2><a href="{% url 'edit-book' book.pk %}">Edit Book</a></h2>
+            <h2><a href="{% url 'delete-book' book.pk %}">Delete Book</a></h2>
+        {% endif %}
+        <a href="{% url 'books' %}">Back</a>
+    </p>
 </body>
 </html>

@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from datetime import datetime, date
+from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 class Genre(models.Model):
@@ -27,14 +29,15 @@ class Book(models.Model):
         return reverse('home')
 
 class Reviews(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField(blank=True)
-    rating = models.IntegerField(default=0)
-    time = models.DateTimeField()
+    rating = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
+    time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.book + self.user
+        return f"Review for {self.book} by {self.user}"
+
     def get_absolute_url(self):
         return reverse('home')
 
@@ -52,7 +55,7 @@ class Club(models.Model):
 class Message(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     message = models.TextField()
-    time = models.DateTimeField()
+    time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.user
