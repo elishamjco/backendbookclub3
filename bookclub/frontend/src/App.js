@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import HomePage from './components/HomePage';
+import AddBook from './components/AddBook';
+import AddClub from './components/AddClub';
+import ViewClubs from './components/ViewClubs';
+import ViewBooks from './components/ViewBooks';
+import Login from './components/Login';
+import Register from './components/Register';
+import BookDetails from './components/BookDetails';
+import ClubDetails from './components/ClubDetails';
+import PostReview from './components/PostReview';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    return (
+        <Router>
+            <Switch>
+                <Route path="/" exact component={HomePage} />
+                <Route path="/add-book" component={AddBook} />
+                <Route path="/add-club" component={AddClub} />
+                <Route path="/clubs" component={ViewClubs} />
+                <Route path="/books" component={ViewBooks} />
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={Register} />
+                <Route path="/bookdetails/:bookId" component={BookDetails} />
+                <Route path="/clubdetails/:clubId" component={ClubDetails} />
+                <Route path="/postreview" component={PostReview} />
+            </Switch>
+        </Router>
+    );
+};
 
 export default App;
